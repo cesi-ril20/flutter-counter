@@ -1,11 +1,11 @@
 import 'package:flutter_app/cesi_tycoon/location.dart';
 import 'package:flutter_app/cesi_tycoon/tickable.dart';
 
-class Route implements Tickable {
+class CommercialRoute implements Tickable {
   final Location origin;
   final Location destination;
   final String resource;
-  Route(this.origin, this.destination, this.resource);
+  CommercialRoute(this.origin, this.destination, this.resource);
 
   @override
   void tick() {

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_app/models/observable.dart';
 
@@ -29,6 +30,10 @@ class _ValueObserverState extends State<ValueObserverWidget>
   }
 
   Widget build(BuildContext context) {
-    return Text(_value);
+    return Text(_value,
+        style: TextStyle(
+          fontSize: 12,
+          color: Colors.white,
+        ));
   }
 }

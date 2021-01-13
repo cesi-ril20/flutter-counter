@@ -1,26 +1,29 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_app/cesi_tycoon/commercial_route.dart';
+import 'package:flutter_app/models/observable.dart';
 import 'package:flutter_app/widgets/value_observer_widget.dart';
 
-import 'models/item.dart';
+import 'cesi_tycoon/game.dart';
+import 'cesi_tycoon/location.dart';
 
-var observableItem = ObservableItem("Foret", 0);
-var observableItem2 = ObservableItem("Scierie", 14);
-var tickables = <Tickable>[observableItem, observableItem2];
 void main() {
-  runApp(MyApp());
-
-  const oneSec = const Duration(seconds: 1);
-  new Timer.periodic(
-      oneSec,
-      (Timer t) => {
-            tickables.forEach((tickable) => {tickable.tick()})
-          });
+  final game = Game();
+  final foret = Foret("Sherwood");
+  final scierie = Scierie("Scierie");
+  final route = CommercialRoute(foret, scierie, "arbre");
+  game.locations.add(foret);
+  game.locations.add(scierie);
+  game.routes.add(route);
+  game.init();
+  runApp(MyApp(game));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+  final Game game;
+
+  MyApp(this.game);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,30 +45,29 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyList(),
+      home: MyList(game.locations),
     );
   }
 }
 
 class MyList extends StatelessWidget {
-  MyList({Key key}) : super(key: key);
+  List<Observable> locations;
+  MyList(locations, {Key key}) : super(key: key) {
+    this.locations = locations.cast<Observable>();
+  }
+
   Widget build(BuildContext context) {
     return Container(
         color: Colors.white,
         child: ListView(
-          padding: const EdgeInsets.all(8),
-          children: <Widget>[
-            Container(
-              height: 50,
-              color: Colors.indigo[400],
-              child: Center(child: ValueObserverWidget(observableItem)),
-            ),
-            Container(
-              height: 50,
-              color: Colors.indigo[400],
-              child: Center(child: ValueObserverWidget(observableItem2)),
-            )
-          ],
-        ));
+            padding: const EdgeInsets.all(8),
+            children: locations
+                .map((e) => Container(
+                      height: 50,
+                      color: Colors.indigo[400],
+                      child: Center(child: ValueObserverWidget(e)),
+                    ))
+                .toList()
+                .cast<Widget>()));
   }
 }

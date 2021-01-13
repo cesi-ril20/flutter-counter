@@ -1,6 +1,6 @@
 import 'package:flutter_app/cesi_tycoon/deposit.dart';
 import 'package:flutter_app/cesi_tycoon/location.dart';
-import 'package:flutter_app/cesi_tycoon/route.dart';
+import 'package:flutter_app/cesi_tycoon/commercial_route.dart';
 import 'package:flutter_app/cesi_tycoon/tickable.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -20,7 +20,7 @@ void main() {
   });
 
   test('foret', () {
-    final foret = Foret();
+    final foret = Foret('');
 
     expect(foret.deposit.getQuantity("arbre"), 0);
     expect(foret.deposit.getQuantity("poney"), 0);
@@ -30,8 +30,8 @@ void main() {
   });
 
   test("route", () {
-    final foret = Foret();
-    final scierie = Scierie();
+    final foret = Foret('');
+    final scierie = Scierie('');
     final liste = List<Tickable>();
     liste.add(foret);
     liste.add(scierie);
@@ -54,7 +54,7 @@ void main() {
 
     final listeRoutes = List<Tickable>();
 
-    listeRoutes.add(Route(foret, scierie, "arbre"));
+    listeRoutes.add(CommercialRoute(foret, scierie, "arbre"));
 
     tickAll(liste);
     tickAll(listeRoutes);

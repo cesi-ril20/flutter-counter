@@ -29,4 +29,8 @@ class Deposit {
   bool hasRoomFor(String resource, int quantity) {
     return (_deposit[resource] ?? 0) + quantity <= MAX_QUANTITY;
   }
+
+  toString() {
+    return _deposit.toString();
+  }
 }
