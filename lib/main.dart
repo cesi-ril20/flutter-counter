@@ -57,17 +57,18 @@ class MyList extends StatelessWidget {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-        color: Colors.white,
-        child: ListView(
-            padding: const EdgeInsets.all(8),
-            children: locations
-                .map((e) => Container(
-                      height: 50,
-                      color: Colors.indigo[400],
-                      child: Center(child: ValueObserverWidget(e)),
-                    ))
-                .toList()
-                .cast<Widget>()));
+    return Scaffold(
+        appBar: AppBar(
+            title: SizedBox(
+                height: kToolbarHeight,
+                child: Center(child: Text("CESI Tycoon")))),
+        body: Container(
+            color: Colors.white,
+            child: ListView(
+                padding: const EdgeInsets.all(8),
+                children: locations
+                    .map((e) => ValueObserverWidget(e))
+                    .toList()
+                    .cast<Widget>())));
   }
 }

@@ -29,6 +29,11 @@ void main() {
     expect(foret.deposit.getQuantity("poney"), 0);
   });
 
+  test("tests", () {
+    var toto = 1;
+    expect(toto, closeTo(3, 2));
+  });
+
   test("route", () {
     final foret = Foret('');
     final scierie = Scierie('');

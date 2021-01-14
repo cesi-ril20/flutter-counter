@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_app/cesi_tycoon/location.dart';
 import 'package:flutter_app/models/observable.dart';
 
 class ValueObserverWidget extends StatefulWidget {
@@ -13,9 +14,10 @@ class ValueObserverWidget extends StatefulWidget {
 
 class _ValueObserverState extends State<ValueObserverWidget>
     implements Observer {
-  String _value = "";
-
   _ValueObserverState();
+
+  String _name;
+  String _deposit;
 
   @override
   void initState() {
@@ -25,15 +27,16 @@ class _ValueObserverState extends State<ValueObserverWidget>
 
   void changes(String value) {
     setState(() {
-      _value = value;
+      _name = (widget.observable as Location).name;
+      _deposit = (widget.observable as Location).deposit.toString();
     });
   }
 
   Widget build(BuildContext context) {
-    return Text(_value,
-        style: TextStyle(
-          fontSize: 12,
-          color: Colors.white,
-        ));
+    return ListTile(
+      title: Text(_name),
+      subtitle: Text(_deposit),
+      //onTap: () => onTapped(book),
+    );
   }
 }
